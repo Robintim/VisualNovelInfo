@@ -26,10 +26,11 @@ enum ErrorNetwork: Error {
 
 protocol NetworkApiProtocol: AnyObject {
     var urlConfiguration: URLConfiguration { get set }
-    func search<T: Decodable>(withCompletionHandler handler: @escaping (Result<T, ErrorNetwork>) -> Void)
+    func search<T: Decodable>(withRequest requestSearch: Request, andCompletionHandler handler: @escaping (Result<T, ErrorNetwork>) -> Void)
 }
 
 class ServiceApi: NetworkApiProtocol {
+    
     var urlConfiguration: URLConfiguration
     private var arrQueryItems: [URLQueryItem]?
     
@@ -38,12 +39,18 @@ class ServiceApi: NetworkApiProtocol {
         self.arrQueryItems = arrQueryItems
     }
     
-    public func search<T>(withCompletionHandler handler: @escaping (Result<T, ErrorNetwork>) -> Void) where T : Decodable {
-        guard let url = urlConfiguration.configureURL(withQueryItems: arrQueryItems) else {
+    func search<T>(withRequest requestSearch: Request, andCompletionHandler handler: @escaping (Result<T, ErrorNetwork>) -> Void) where T : Decodable {
+        guard let url = urlConfiguration.configureURL(withQueryItems: arrQueryItems), let jsonData = try? JSONEncoder().encode(requestSearch) else {
             handler(.failure(.badURL))
             return
         }
-        URLSession.shared.dataTask(with: .init(url: url)) { data, response, _ in
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = jsonData
+        
+        URLSession.shared.dataTask(with: request) { data, response, _ in
             guard let data = data, let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
                 handler(.failure(.badResponse))
                 return
