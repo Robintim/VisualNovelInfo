@@ -1,6 +1,17 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "Loading" : {
+      "comment" : "Loading",
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cargando"
+          }
+        }
+      }
+    },
     "Search visual novel" : {
       "comment" : "Search visual novel",
       "localizations" : {

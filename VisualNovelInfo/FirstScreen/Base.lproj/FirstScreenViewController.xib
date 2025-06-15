@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FirstScreenViewController" customModule="VisualNovelInfo" customModuleProvider="target">
             <connections>
+                <outlet property="tblResults" destination="NQG-RF-xjV" id="fBc-tY-3C0"/>
                 <outlet property="txfSearch" destination="Sia-zi-eLT" id="X22-tq-QSy"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -37,12 +38,20 @@
                         </button>
                     </subviews>
                 </stackView>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="NQG-RF-xjV">
+                    <rect key="frame" x="0.0" y="176.33333333333331" width="393" height="607.66666666666674"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </tableView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="NQG-RF-xjV" secondAttribute="trailing" id="7U3-SZ-Crv"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Oh5-Yi-aRC" secondAttribute="trailing" constant="16" id="DXS-x1-3rs"/>
+                <constraint firstItem="NQG-RF-xjV" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Z6O-Jz-Jiy"/>
                 <constraint firstItem="Oh5-Yi-aRC" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="16" id="ajh-LT-agW"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="NQG-RF-xjV" secondAttribute="bottom" id="ehD-SX-Yef"/>
+                <constraint firstItem="NQG-RF-xjV" firstAttribute="top" secondItem="Oh5-Yi-aRC" secondAttribute="bottom" constant="8" id="s25-6Q-2Dj"/>
                 <constraint firstItem="Oh5-Yi-aRC" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="wjr-xt-m2B"/>
             </constraints>
             <point key="canvasLocation" x="119.84732824427481" y="20.422535211267608"/>

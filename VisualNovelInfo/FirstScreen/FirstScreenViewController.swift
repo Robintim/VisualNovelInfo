@@ -14,6 +14,7 @@ class FirstScreenViewController: UIViewController {
             txfSearch.delegate = self
         }
     }
+    @IBOutlet weak var tblResults: UITableView!
     private lazy var service: NetworkApiProtocol = ServiceApi(configuration: URLConfiguration(path: "/kana/vn"))
     private let strFields = "title, image.url, image.sexual, image.violence, released, languages"
     

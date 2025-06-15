@@ -11,5 +11,6 @@ struct Request: Codable {
     var filters: [String]
     var fields: String
     var page: Int
+    var results: Int = 50
     
 }
