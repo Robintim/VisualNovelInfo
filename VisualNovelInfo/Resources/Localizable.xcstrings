@@ -1,0 +1,105 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Accept" : {
+      "comment" : "Accept",
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aceptar"
+          }
+        }
+      }
+    },
+    "Languages: %@" : {
+      "comment" : "Languages listed",
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Idiomas: %@"
+          }
+        }
+      }
+    },
+    "Loading" : {
+      "comment" : "Loading",
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cargando"
+          }
+        }
+      }
+    },
+    "Published: %@" : {
+      "comment" : "Published date",
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Publicado: %@"
+          }
+        }
+      }
+    },
+    "Search visual novel" : {
+      "comment" : "Search visual novel",
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buscar novela visual"
+          }
+        }
+      }
+    },
+    "Something went wrong" : {
+      "comment" : "Error alert title",
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Algo salió mal"
+          }
+        }
+      }
+    },
+    "The service didn't respond" : {
+      "comment" : "The service didn't respond",
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El servicio no respondió"
+          }
+        }
+      }
+    },
+    "There was a problem creating the url" : {
+      "comment" : "There was a problem creating the url",
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hubo un problema creando la url"
+          }
+        }
+      }
+    },
+    "There was a problem parsing the json" : {
+      "comment" : "There was a problem parsing the json",
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hubo un problema al construir el JSON"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}
