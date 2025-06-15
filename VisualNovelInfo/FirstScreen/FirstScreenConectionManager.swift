@@ -17,9 +17,11 @@ class FirstScreenConectionManager {
     private var managerDelegate: FirstScreenConectionManagerProtocol?
     private lazy var service: NetworkApiProtocol = ServiceApi(configuration: URLConfiguration(path: "/kana/vn"))
     private let strFields = "title, image.url, image.sexual, image.violence, released, languages"
+    var bShouldCensored: Bool
     
-    init(managerDelegate: FirstScreenConectionManagerProtocol? = nil) {
+    init(managerDelegate: FirstScreenConectionManagerProtocol? = nil, bShouldCensored: Bool = true) {
         self.managerDelegate = managerDelegate
+        self.bShouldCensored = bShouldCensored
     }
     
     func search(withParameter strText: String) {
@@ -36,12 +38,28 @@ class FirstScreenConectionManager {
         service.search(withRequest: request) {[weak self] (result: Result<Response<SearchResults>, ErrorNetwork>) in
             switch result {
             case .success(let success):
-                print("Servicio consumido con éxito: \(success.results.count)")
+                if let arrResult: [ResultSearch] = self?.convertService(response: success) {
+                    DispatchQueue.main.async {
+                        self?.managerDelegate?.conectionSucces(withResults: arrResult)
+                    }
+                }
                 
             case .failure(let failure):
-                print("Error: \(failure.localizedDescription)")
-                self?.managerDelegate?.connectionFailed(withMessage: failure.localizedDescription)
+                DispatchQueue.main.async {
+                    self?.managerDelegate?.connectionFailed(withMessage: failure.localizedDescription)
+                }
             }
         }
+    }
+    
+    private func convertService(response service: Response<SearchResults>) -> [ResultSearch] {
+        bHasMore =  service.more
+        var arrResult: [ResultSearch] = [ResultSearch]()
+        for result in service.results {
+            let resultSearch = ResultSearch(arrLanguages: result.languages, strDatePublished: result.released, imageInfo: result.image, strTitle: result.title, bShouldBeCensored: bShouldCensored)
+            arrResult.append(resultSearch)
+        }
+        
+        return arrResult
     }
 }

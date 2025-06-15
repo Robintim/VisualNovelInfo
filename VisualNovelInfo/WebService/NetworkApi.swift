@@ -55,7 +55,6 @@ class ServiceApi: NetworkApiProtocol {
                 handler(.failure(.badResponse))
                 return
             }
-            let str = String(decoding: data, as: UTF8.self)
             if let json = try? JSONDecoder().decode(T.self, from: data) {
                 handler(.success(json))
             } else {

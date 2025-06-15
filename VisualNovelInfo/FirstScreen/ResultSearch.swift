@@ -13,14 +13,20 @@ struct ResultSearch {
     var strDatePublished: String?
     var imageInfo: ImageBaseResponse?
     var strTitle: String?
+    var bShouldBeCensored: Bool = true
     
     private func createDetail() -> String {
         var strPublished: String = ""
         if let strDatePublished = strDatePublished, let datePublished = DateFunctions.convertToDate(strDatePublished, withForrmat: "yyyy-MM-dd"){
-            strPublished.append(String.localizedStringWithFormat(NSLocalizedString("Published: %@", comment: "Published date"), DateFunctions.convertToString(datePublished, withFormat: "dd/MMMM/yyyy")))
+            strPublished.append(String.localizedStringWithFormat(NSLocalizedString("Published: %@", comment: "Published date"), DateFunctions.convertToString(datePublished, withFormat: "dd/MMMM/yyyy").localizedCapitalized))
         }
         
-        return strPublished
+        var strLanguages: String = ""
+        if let arrLanguages = arrLanguages, arrLanguages.count > 0 {
+            let strLanguagesListed = arrLanguages.joined(separator: ", ")
+            strLanguages.append(String.localizedStringWithFormat(NSLocalizedString("Languages: %@", comment: "Languages listed"), strLanguagesListed.localizedCapitalized))
+        }
+        return "\(strPublished)\n\(strLanguages)"
     }
     
 }
@@ -35,8 +41,11 @@ extension ResultSearch: ResultSearchTableViewCellProtocol {
     }
     
     var strURLImage: String {
-        return imageInfo?.url ?? ""
+        if bShouldBeCensored {
+            return (imageInfo?.sexual ?? 0 <= 1 && imageInfo?.violence ?? 0 <= 1) ? imageInfo?.url ?? "" : ""
+        } else {
+            return imageInfo?.url ?? ""
+        }
     }
-    
     
 }

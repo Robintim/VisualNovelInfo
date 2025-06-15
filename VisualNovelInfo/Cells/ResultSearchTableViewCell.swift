@@ -34,6 +34,8 @@ class ResultSearchTableViewCell: UITableViewCell {
         if let urlImage = URL(string: resultSearchProtocol.strURLImage) {
             downloadTask?.cancel()
             downloadTask = imgLogo.loadImage(url: urlImage)
+        } else {
+            imgLogo.image = UIImage(named: "noImage")
         }
     }
 }
