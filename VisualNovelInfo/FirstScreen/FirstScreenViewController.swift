@@ -9,21 +9,49 @@ import UIKit
 
 class FirstScreenViewController: UIViewController {
 
+    @IBOutlet weak var txfSearch: UITextField! {
+        didSet {
+            txfSearch.delegate = self
+        }
+    }
+    private lazy var service: NetworkApiProtocol = ServiceApi(configuration: URLConfiguration(path: "/kana/vn"))
+    private let strFields = "title, image.url, image.sexual, image.violence, released, languages"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        title = NSLocalizedString("Search visual novel", comment: "Search visual novel")
     }
 
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func searchButtonAction(_ sender: UIButton) {
+        configureSearch()
     }
-    */
+    
+    private func configureSearch() {
+        txfSearch.resignFirstResponder()
+        let request = createRequestObject(withTest: txfSearch.text ?? "")
+        searchVisualNovels(withRequest: request)
+    }
+    
+    private func createRequestObject(withTest strText: String) -> Request {
+        let request = Request(filters: ["search", "=", strText], fields: strFields, page: 1)
+        return request
+    }
+    
+    private func searchVisualNovels(withRequest request: Request) {
+        service.search(withRequest: request) { [weak self] (result: Result<Response<SearchResults>, ErrorNetwork>) in
+            switch result {
+            case .success(let success):
+                print("Servicio consumido con éxito: \(success.results)")
+            case .failure(let failure):
+                print("Error: \(failure.localizedDescription)")
+            }
+        }
+    }
+}
 
+extension FirstScreenViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        configureSearch()
+        return true
+    }
 }

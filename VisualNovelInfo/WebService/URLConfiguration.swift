@@ -15,7 +15,7 @@ struct URLConfiguration {
         return Locale.current.language.languageCode?.identifier ?? ""
     }
     
-    public init(strMethod: String = "https", strHost: String = "pokeapi.co", path: PathsProtocol) {
+    public init(strMethod: String = "https", strHost: String = "api.vndb.org", path: PathsProtocol) {
         self.strMethod = strMethod
         self.strHost = strHost
         self.path = path
@@ -34,4 +34,10 @@ struct URLConfiguration {
 
 protocol PathsProtocol {
     var strPathToUse: String { get }
+}
+
+extension String: PathsProtocol {
+    var strPathToUse: String {
+        return self
+    }
 }
