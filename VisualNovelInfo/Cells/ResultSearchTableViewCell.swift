@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol ResultSearchTableViewCellProtocol: AnyObject {
+protocol ResultSearchTableViewCellProtocol: Any {
     var strTile: String { get }
     var strDetails: String { get }
     var strURLImage: String { get }

@@ -8,7 +8,7 @@
 import Foundation
 
 struct ImageBaseResponse: Decodable {
-    var sexual: Int
-    var violence: Int
+    var sexual: Double
+    var violence: Double
     var url: String?
 }

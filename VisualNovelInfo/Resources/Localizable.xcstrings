@@ -12,6 +12,17 @@
         }
       }
     },
+    "Published: %@" : {
+      "comment" : "Published date",
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Publicado: %@"
+          }
+        }
+      }
+    },
     "Search visual novel" : {
       "comment" : "Search visual novel",
       "localizations" : {

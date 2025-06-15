@@ -50,11 +50,12 @@ class ServiceApi: NetworkApiProtocol {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = jsonData
         
-        URLSession.shared.dataTask(with: request) { data, response, _ in
+        URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data, let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
                 handler(.failure(.badResponse))
                 return
             }
+            let str = String(decoding: data, as: UTF8.self)
             if let json = try? JSONDecoder().decode(T.self, from: data) {
                 handler(.success(json))
             } else {

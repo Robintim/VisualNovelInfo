@@ -14,9 +14,13 @@ class FirstScreenViewController: UIViewController {
             txfSearch.delegate = self
         }
     }
-    @IBOutlet weak var tblResults: UITableView!
-    private lazy var service: NetworkApiProtocol = ServiceApi(configuration: URLConfiguration(path: "/kana/vn"))
-    private let strFields = "title, image.url, image.sexual, image.violence, released, languages"
+    @IBOutlet weak var tblResults: UITableView! {
+        didSet {
+            tblResults.dataSource = self
+            tblResults.delegate = self
+        }
+    }
+    private lazy var conection: FirstScreenConectionManager = FirstScreenConectionManager(managerDelegate: self)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,24 +33,7 @@ class FirstScreenViewController: UIViewController {
     
     private func configureSearch() {
         txfSearch.resignFirstResponder()
-        let request = createRequestObject(withTest: txfSearch.text ?? "")
-        searchVisualNovels(withRequest: request)
-    }
-    
-    private func createRequestObject(withTest strText: String) -> Request {
-        let request = Request(filters: ["search", "=", strText], fields: strFields, page: 1)
-        return request
-    }
-    
-    private func searchVisualNovels(withRequest request: Request) {
-        service.search(withRequest: request) { [weak self] (result: Result<Response<SearchResults>, ErrorNetwork>) in
-            switch result {
-            case .success(let success):
-                print("Servicio consumido con éxito: \(success.results)")
-            case .failure(let failure):
-                print("Error: \(failure.localizedDescription)")
-            }
-        }
+        conection.search(withParameter: txfSearch.text ?? "")
     }
 }
 
@@ -54,5 +41,29 @@ extension FirstScreenViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         configureSearch()
         return true
+    }
+}
+
+extension FirstScreenViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return UITableViewCell()
+    }
+}
+
+extension FirstScreenViewController: UITableViewDelegate {
+    
+}
+
+extension FirstScreenViewController: FirstScreenConectionManagerProtocol {
+    func conectionSucces(withResults arrResults: [ResultSearch]) {
+        
+    }
+    
+    func connectionFailed(withMessage strMessage: String) {
+        
     }
 }

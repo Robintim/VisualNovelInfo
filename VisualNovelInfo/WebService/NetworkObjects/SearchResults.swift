@@ -11,4 +11,5 @@ struct SearchResults: Decodable {
     var languages: [String]?
     var released: String?
     var title: String?
+    var image: ImageBaseResponse?
 }
