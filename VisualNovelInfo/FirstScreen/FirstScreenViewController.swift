@@ -94,7 +94,13 @@ extension FirstScreenViewController: UITableViewDataSource {
 }
 
 extension FirstScreenViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        if state == .searchSuccess, let result = arrResults?[indexPath.row] {
+            let detail = DetailNovelViewController()
+            navigationController?.pushViewController(detail, animated: true)
+        }
+    }
 }
 
 extension FirstScreenViewController: FirstScreenConectionManagerProtocol {

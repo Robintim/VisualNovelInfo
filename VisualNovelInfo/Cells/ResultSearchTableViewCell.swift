@@ -31,6 +31,8 @@ class ResultSearchTableViewCell: UITableViewCell {
         lblTitle.text = resultSearchProtocol.strTile
         lblDetails.text = resultSearchProtocol.strDetails
         
+        accessoryType = .disclosureIndicator
+        
         if let urlImage = URL(string: resultSearchProtocol.strURLImage) {
             downloadTask?.cancel()
             downloadTask = imgLogo.loadImage(url: urlImage)
