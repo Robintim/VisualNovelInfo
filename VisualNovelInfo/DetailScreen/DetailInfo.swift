@@ -8,5 +8,6 @@
 struct DetailInfo {
     
     var resultInfo: ResultSearch?
+    var detailInfoSearch: DetailInfoSearch?
     
 }
