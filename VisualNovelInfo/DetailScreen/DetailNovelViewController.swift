@@ -8,11 +8,14 @@
 import UIKit
 
 class DetailNovelViewController: UIViewController {
+    
+    var detailInfo: DetailInfo?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        if let strTitle = detailInfo?.resultInfo?.strTile {
+            title = strTitle
+        }
     }
 
 }

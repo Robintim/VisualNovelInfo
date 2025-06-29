@@ -56,7 +56,7 @@ class FirstScreenConectionManager {
         bHasMore =  service.more
         var arrResult: [ResultSearch] = [ResultSearch]()
         for result in service.results {
-            let resultSearch = ResultSearch(arrLanguages: result.languages, strDatePublished: result.released, imageInfo: result.image, strTitle: result.title, bShouldBeCensored: bShouldCensored)
+            let resultSearch = ResultSearch(strId: result.id, arrLanguages: result.languages, strDatePublished: result.released, imageInfo: result.image, strTitle: result.title, bShouldBeCensored: bShouldCensored)
             arrResult.append(resultSearch)
         }
         

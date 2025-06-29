@@ -9,6 +9,7 @@ import Foundation
 
 struct ResultSearch {
 
+    var strId: String?
     var arrLanguages: [String]?
     var strDatePublished: String?
     var imageInfo: ImageBaseResponse?

@@ -97,7 +97,11 @@ extension FirstScreenViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if state == .searchSuccess, let result = arrResults?[indexPath.row] {
+            print("Identificador de la novela: \(result.strId ?? "Sin información")")
             let detail = DetailNovelViewController()
+            let detailInfo = DetailInfo(resultInfo: result)
+            detail.detailInfo = detailInfo
+            navigationController?.navigationBar.topItem?.title = ""
             navigationController?.pushViewController(detail, animated: true)
         }
     }

@@ -8,6 +8,7 @@
 import Foundation
 
 struct SearchResults: Decodable {
+    var id: String?
     var languages: [String]?
     var released: String?
     var title: String?
