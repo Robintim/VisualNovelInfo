@@ -27,8 +27,12 @@ class FirstScreenViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = NSLocalizedString("Search visual novel", comment: "Search visual novel")
         registerXib()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        title = NSLocalizedString("Search visual novel", comment: "Search visual novel")
     }
 
     @IBAction func searchButtonAction(_ sender: UIButton) {

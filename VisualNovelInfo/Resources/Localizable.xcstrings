@@ -12,6 +12,34 @@
         }
       }
     },
+    "Average length: %02d:%02d" : {
+      "comment" : "Average length",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Average length: %1$02d:%2$02d"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Duración promedio: %02d:%02d"
+          }
+        }
+      }
+    },
+    "Description: %@" : {
+      "comment" : "Description",
+      "localizations" : {
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Descripción: %@"
+          }
+        }
+      }
+    },
     "Languages: %@" : {
       "comment" : "Languages listed",
       "localizations" : {

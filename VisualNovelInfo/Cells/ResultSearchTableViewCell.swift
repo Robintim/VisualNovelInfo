@@ -27,11 +27,11 @@ class ResultSearchTableViewCell: UITableViewCell {
         imgLogo.image = nil
     }
     
-    func configureCell(withProtocol resultSearchProtocol: ResultSearchTableViewCellProtocol) {
+    func configureCell(withProtocol resultSearchProtocol: ResultSearchTableViewCellProtocol, showDisclosureIndicator: Bool = true) {
         lblTitle.text = resultSearchProtocol.strTile
         lblDetails.text = resultSearchProtocol.strDetails
         
-        accessoryType = .disclosureIndicator
+        accessoryType = showDisclosureIndicator ? .disclosureIndicator : .none
         
         if let urlImage = URL(string: resultSearchProtocol.strURLImage) {
             downloadTask?.cancel()

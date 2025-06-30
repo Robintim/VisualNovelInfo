@@ -1,0 +1,78 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "dwE-p0-MtI.segmentTitles[0]" : {
+      "comment" : "Class = \"UISegmentedControl\"; dwE-p0-MtI.segmentTitles[0] = \"Information\"; ObjectID = \"dwE-p0-MtI\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Information"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Información"
+          }
+        }
+      }
+    },
+    "dwE-p0-MtI.segmentTitles[1]" : {
+      "comment" : "Class = \"UISegmentedControl\"; dwE-p0-MtI.segmentTitles[1] = \"Galery\"; ObjectID = \"dwE-p0-MtI\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Galery"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Galeria"
+          }
+        }
+      }
+    },
+    "dwE-p0-MtI.segmentTitles[2]" : {
+      "comment" : "Class = \"UISegmentedControl\"; dwE-p0-MtI.segmentTitles[2] = \"Characters\"; ObjectID = \"dwE-p0-MtI\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Characters"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Personajes"
+          }
+        }
+      }
+    },
+    "MLj-c1-FXY.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"(Alt titles)\"; ObjectID = \"MLj-c1-FXY\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "(Alt titles)"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Otros"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

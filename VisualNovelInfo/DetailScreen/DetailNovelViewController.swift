@@ -9,11 +9,28 @@ import UIKit
 
 class DetailNovelViewController: UIViewController {
     
+    @IBOutlet weak var lblTitles: UILabel! {
+        didSet {
+            lblTitles.text = ""
+        }
+    }
+    @IBOutlet weak var tblInfo: UITableView! {
+        didSet {
+            tblInfo.delegate = self
+            tblInfo.dataSource = self
+            tblInfo.separatorStyle = .none
+        }
+    }
     var detailInfo: DetailInfo?
     private lazy var connection: DetailScreenConnectionManager = DetailScreenConnectionManager(manager: self)
-
+    private var iSelectedIndex: Int = 0
+    private var bSearchHasBeeenDone: Bool {
+        return (detailInfo?.detailInfoSearch) != nil
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        registerXib()
         if let strTitle = detailInfo?.resultInfo?.strTile {
             title = strTitle
         }
@@ -21,22 +38,93 @@ class DetailNovelViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if let detail = detailInfo?.detailInfoSearch {
-            print("Ya se hizo la búsqueda: \(detail.strAlttitle ?? "No debería salir algo aquí")")
+        if bSearchHasBeeenDone {
+            configureView()
         } else if let strVnId = detailInfo?.resultInfo?.strId {
             connection.searchDetail(forNovel: strVnId)
         }
     }
 
+    @IBAction func sectionWasSelected(_ sender: UISegmentedControl) {
+        iSelectedIndex = sender.selectedSegmentIndex
+        
+    }
+    
+    private func registerXib() {
+        var nib = UINib(nibName: CellIdentifiers.resultSearchTableViewCell.rawValue, bundle: nil)
+        tblInfo.register(nib, forCellReuseIdentifier: CellIdentifiers.resultSearchTableViewCell.rawValue)
+        nib = UINib(nibName: CellIdentifiers.simpleTableViewCell.rawValue, bundle: nil)
+        tblInfo.register(nib, forCellReuseIdentifier: CellIdentifiers.simpleTableViewCell.rawValue)
+    }
+    
+    private func configureView() {
+        if let strTitles = detailInfo?.getAlternativeTitles() {
+            lblTitles.text = strTitles
+        }
+        tblInfo.reloadData()
+    }
 }
 
 extension DetailNovelViewController: DetailScreenConnectionManagerProtocol {
     func fetchDetailInfoSuccessfully(with search: DetailInfoSearch) {
         detailInfo?.detailInfoSearch = search
+        configureView()
     }
     
     func fetchDetailInfoFailed(with error: any Error) {
         let alert = createSimpleAlertView(withTitle: NSLocalizedString("Something went wrong", comment: "Error alert title"), messge: error.localizedDescription, actionTitle: NSLocalizedString("Accept", comment: "Accept"))
         present(alert, animated: true)
+    }
+}
+
+extension DetailNovelViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if bSearchHasBeeenDone {
+            switch iSelectedIndex {
+                case 0 :
+                    return 2
+                default :
+                    return 0
+            }
+        }
+        return 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if bSearchHasBeeenDone {
+            switch iSelectedIndex {
+            case 0 :
+                return getCellForGeneralInfo(forIndex: indexPath, andTableView: tableView)
+            default :
+                break
+            }
+        }
+        return UITableViewCell()
+    }
+    
+    private func getCellForGeneralInfo(forIndex index: IndexPath, andTableView tableView: UITableView) -> UITableViewCell {
+        switch index.row {
+        case 0 :
+            if let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifiers.resultSearchTableViewCell.rawValue, for: index) as? ResultSearchTableViewCell, let detailInfo = detailInfo {
+                cell.configureCell(withProtocol: detailInfo, showDisclosureIndicator: false)
+                return cell
+            }
+        case 1 :
+            if let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifiers.simpleTableViewCell.rawValue, for: index) as? SimpleTableViewCell, let detailInfo = detailInfo {
+                cell.setCell(with: detailInfo)
+                return cell
+            }
+            
+        default :
+            return UITableViewCell()
+        }
+        
+        return UITableViewCell()
+    }
+}
+
+extension DetailNovelViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
