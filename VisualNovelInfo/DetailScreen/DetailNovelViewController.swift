@@ -23,7 +23,12 @@ class DetailNovelViewController: UIViewController {
     }
     var detailInfo: DetailInfo?
     private lazy var connection: DetailScreenConnectionManager = DetailScreenConnectionManager(manager: self)
-    private var iSelectedIndex: Int = 0
+    private var iSelectedIndex: Int = 0 {
+        didSet {
+            detailInfo?.iSelectedIndex = iSelectedIndex
+            tblInfo.reloadData()
+        }
+    }
     private var bSearchHasBeeenDone: Bool {
         return (detailInfo?.detailInfoSearch) != nil
     }
@@ -55,6 +60,8 @@ class DetailNovelViewController: UIViewController {
         tblInfo.register(nib, forCellReuseIdentifier: CellIdentifiers.resultSearchTableViewCell.rawValue)
         nib = UINib(nibName: CellIdentifiers.simpleTableViewCell.rawValue, bundle: nil)
         tblInfo.register(nib, forCellReuseIdentifier: CellIdentifiers.simpleTableViewCell.rawValue)
+        nib = UINib(nibName: CellIdentifiers.doubleImageTableViewCell.rawValue, bundle: nil)
+        tblInfo.register(nib, forCellReuseIdentifier: CellIdentifiers.doubleImageTableViewCell.rawValue)
     }
     
     private func configureView() {
@@ -83,6 +90,8 @@ extension DetailNovelViewController: UITableViewDataSource {
             switch iSelectedIndex {
                 case 0 :
                     return 2
+            case 1:
+                return detailInfo?.getTotalImageRow() ?? 0
                 default :
                     return 0
             }
@@ -95,6 +104,8 @@ extension DetailNovelViewController: UITableViewDataSource {
             switch iSelectedIndex {
             case 0 :
                 return getCellForGeneralInfo(forIndex: indexPath, andTableView: tableView)
+            case 1:
+                return getCellForGallery(forIndex: indexPath, andTableView: tableView)
             default :
                 break
             }
@@ -119,6 +130,15 @@ extension DetailNovelViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         
+        return UITableViewCell()
+    }
+    
+    private func getCellForGallery(forIndex index: IndexPath, andTableView tableView: UITableView) -> UITableViewCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifiers.doubleImageTableViewCell.rawValue, for: index) as? DoubleImageTableViewCell {
+            let tplUrlForCell = detailInfo?.getUrl(forIndex: index.row)
+            cell.setImage(forFirstImage: tplUrlForCell?.0, andSecondImage: tplUrlForCell?.1)
+            return cell
+        }
         return UITableViewCell()
     }
 }

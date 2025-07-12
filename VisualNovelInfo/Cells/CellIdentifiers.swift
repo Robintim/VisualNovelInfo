@@ -9,5 +9,5 @@ enum CellIdentifiers: String {
     case loadingCell = "LoadingTableViewCell"
     case simpleTableViewCell = "SimpleTableViewCell"
     case resultSearchTableViewCell = "ResultSearchTableViewCell"
-    
+    case doubleImageTableViewCell = "DoubleImageTableViewCell"
 }

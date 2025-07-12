@@ -10,7 +10,14 @@ import Foundation
 struct DetailInfo {
     
     var resultInfo: ResultSearch?
-    var detailInfoSearch: DetailInfoSearch?
+    var detailInfoSearch: DetailInfoSearch? {
+        didSet {
+            guard let detailInfoSearch = detailInfoSearch else { return }
+            arrOrderedImage = detailInfoSearch.getOrderedScreenshots()
+        }
+    }
+    var iSelectedIndex: Int = 0
+    private var arrOrderedImage: [ImageBaseResponse]?
     
     func getAlternativeTitles() -> String? {
         if let strAlttitle = detailInfoSearch?.strAlttitle {
@@ -19,6 +26,24 @@ struct DetailInfo {
             return strTitle
         }
         return nil
+    }
+    
+    func getTotalImageRow() -> Int {
+        return Int((Double(arrOrderedImage?.count ?? 0) / 2.0).rounded())
+    }
+    
+    func getUrl(forIndex iRow: Int) -> (String?, String?) {
+        let iBaseRow = 2 * iRow
+        var strUrl1: String? = nil
+        if let strFirstUrl = arrOrderedImage?[iBaseRow].url {
+            strUrl1 = strFirstUrl
+        }
+        
+        var strUrl2: String? = nil
+        if arrOrderedImage?.count ?? 0 >= iBaseRow + 1, let strSecondUrl = arrOrderedImage?[iBaseRow + 1].url {
+            strUrl2 = strSecondUrl
+        }
+        return (strUrl1, strUrl2)
     }
     
 }

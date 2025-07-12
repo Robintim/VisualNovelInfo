@@ -12,19 +12,19 @@
         }
       }
     },
-    "Average length: %02d:%02d" : {
+    "Average length: %02d h:%02d min" : {
       "comment" : "Average length",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Average length: %1$02d:%2$02d"
+            "value" : "Average length: %1$02d h:%2$02d min"
           }
         },
         "es-419" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Duración promedio: %02d:%02d"
+            "value" : "Tiempo promedio: %1$02d h: %2$02d min"
           }
         }
       }

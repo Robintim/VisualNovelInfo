@@ -102,7 +102,8 @@ extension FirstScreenViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         if state == .searchSuccess, let result = arrResults?[indexPath.row] {
             let detail = DetailNovelViewController()
-            let detailInfo = DetailInfo(resultInfo: result)
+            var detailInfo = DetailInfo()
+            detailInfo.resultInfo = result
             detail.detailInfo = detailInfo
             navigationController?.navigationBar.topItem?.title = ""
             navigationController?.pushViewController(detail, animated: true)
