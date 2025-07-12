@@ -16,6 +16,7 @@ struct DetailInfoSearch {
     var arrPlatforms: [String]?
     var arrScreenshots: [ImageBaseResponse]?
     var arrTitles: [TitlesResponse]?
+    var arrCharacters: [CharacterBase]?
     
     func getLengthString() -> String? {
         guard let dLength = dLengthMinutes else { return nil }

@@ -90,8 +90,10 @@ extension DetailNovelViewController: UITableViewDataSource {
             switch iSelectedIndex {
                 case 0 :
                     return 2
-            case 1:
-                return detailInfo?.getTotalImageRow() ?? 0
+                case 1:
+                    return detailInfo?.getTotalImageRow() ?? 0
+                case 2:
+                    return detailInfo?.getTotalCharacter() ?? 0
                 default :
                     return 0
             }
@@ -106,6 +108,8 @@ extension DetailNovelViewController: UITableViewDataSource {
                 return getCellForGeneralInfo(forIndex: indexPath, andTableView: tableView)
             case 1:
                 return getCellForGallery(forIndex: indexPath, andTableView: tableView)
+            case 2:
+                return getCellForCharacter(forIndex: indexPath, andTableView: tableView)
             default :
                 break
             }
@@ -137,6 +141,14 @@ extension DetailNovelViewController: UITableViewDataSource {
         if let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifiers.doubleImageTableViewCell.rawValue, for: index) as? DoubleImageTableViewCell {
             let tplUrlForCell = detailInfo?.getUrl(forIndex: index.row)
             cell.setImage(forFirstImage: tplUrlForCell?.0, andSecondImage: tplUrlForCell?.1)
+            return cell
+        }
+        return UITableViewCell()
+    }
+    
+    private func getCellForCharacter(forIndex index:IndexPath, andTableView tableView: UITableView) -> UITableViewCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifiers.resultSearchTableViewCell.rawValue, for: index) as? ResultSearchTableViewCell, let character = detailInfo?.getCharacter(forIndex: index.row) {
+            cell.configureCell(withProtocol: character)
             return cell
         }
         return UITableViewCell()

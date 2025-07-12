@@ -16,4 +16,5 @@ struct DetailSearchResponse: Decodable {
     var platforms: [String]?
     var screenshots: [ImageBaseResponse]?
     var titles: [TitlesResponse]?
+    var va: [VoiceActorBase]?
 }

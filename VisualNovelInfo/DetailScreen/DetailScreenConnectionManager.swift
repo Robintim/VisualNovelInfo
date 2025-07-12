@@ -15,7 +15,7 @@ protocol DetailScreenConnectionManagerProtocol: Any {
 class DetailScreenConnectionManager {
     private var manager: DetailScreenConnectionManagerProtocol?
     private lazy var service: NetworkApiProtocol = ServiceApi(configuration: URLConfiguration(path: "/kana/vn"))
-    private let strFields = "title, alttitle, aliases, olang, released, titles.lang, titles.title, titles.latin, titles.main, platforms, image.url, image.violence, description, length_minutes, screenshots.url, screenshots.sexual, screenshots.violence, va.character.name"
+    private let strFields = "title, alttitle, aliases, olang, released, titles.lang, titles.title, titles.latin, titles.main, platforms, image.url, image.violence, description, length_minutes, screenshots.url, screenshots.sexual, screenshots.violence, va.character.name, va.character.image.url, va.character.image.violence, va.character.image.sexual"
     
     init(manager: DetailScreenConnectionManagerProtocol) {
         self.manager = manager
@@ -31,7 +31,15 @@ class DetailScreenConnectionManager {
             switch result {
             case .success(let success):
                 if let detail = success.results.first {
-                    let detailInfo: DetailInfoSearch = DetailInfoSearch(arrAliases: detail.aliases, strAlttitle: detail.alttitle, strDescription: detail.description, dLengthMinutes: detail.length_minutes, strOriginalLanguage: detail.olang, arrPlatforms: detail.platforms, arrScreenshots: detail.screenshots, arrTitles: detail.titles)
+                    var arrCharacters: [CharacterBase] = [CharacterBase]()
+                    if let arrVoice = detail.va, arrVoice.count > 0 {
+                        for voice in arrVoice {
+                            if let character = voice.character {
+                                arrCharacters.append(CharacterBase(strId: character.id, strName: character.name, imageInfo: character.image))
+                            }
+                        }
+                    }
+                    let detailInfo: DetailInfoSearch = DetailInfoSearch(arrAliases: detail.aliases, strAlttitle: detail.alttitle, strDescription: detail.description, dLengthMinutes: detail.length_minutes, strOriginalLanguage: detail.olang, arrPlatforms: detail.platforms, arrScreenshots: detail.screenshots, arrTitles: detail.titles, arrCharacters: arrCharacters)
                     DispatchQueue.main.async {
                         self?.manager?.fetchDetailInfoSuccessfully(with: detailInfo)
                     }

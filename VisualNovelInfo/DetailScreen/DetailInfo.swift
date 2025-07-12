@@ -40,10 +40,18 @@ struct DetailInfo {
         }
         
         var strUrl2: String? = nil
-        if arrOrderedImage?.count ?? 0 >= iBaseRow + 1, let strSecondUrl = arrOrderedImage?[iBaseRow + 1].url {
+        if arrOrderedImage?.count ?? 0 > iBaseRow + 1, let strSecondUrl = arrOrderedImage?[iBaseRow + 1].url {
             strUrl2 = strSecondUrl
         }
         return (strUrl1, strUrl2)
+    }
+    
+    func getTotalCharacter() -> Int {
+        return detailInfoSearch?.arrCharacters?.count ?? 0
+    }
+    
+    func getCharacter(forIndex iIndex: Int) -> CharacterBase? {
+        return detailInfoSearch?.arrCharacters?[iIndex]
     }
     
 }
